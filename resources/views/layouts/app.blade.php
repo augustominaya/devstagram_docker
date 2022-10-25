@@ -46,9 +46,15 @@
                     <a class="font-bold text-gray-600 text-sm" href="#">
                         Hola: <span class="font-normal"> {{ auth()->user()->username }}</span>
                     </a>
-                    {{-- Aqui vamos a llamar la ruta de crear-cuenta por el alias o name de ruta registrar --}}
-                    <a class="font-bold uppercase text-gray-600 text-sm" href="{{ route('Registrar')}}">
-                        Cerrar Sesion</a>
+                    
+                    {{-- cambiamos la manera de cerrar sesion para utilizar el metodo POST con un formulario --}}
+                        <form method="POST" action="{{ route('logout')}}">
+                            {{-- la directiva @csrf crea una variable oculta para enviar un token y validar el cierre de sesion 
+                                y asi evitame ataques malicioso --}}
+                            @csrf
+                            <button type="submit" class="font-bold uppercase text-gray-600 text-sm" href="{{ route('logout')}}">
+                                Cerrar Sesion</button>
+                        </form>
 
                 </nav>
                 @endauth
