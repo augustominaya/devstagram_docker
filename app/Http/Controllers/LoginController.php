@@ -16,6 +16,7 @@ class LoginController extends Controller
     //recibimos un objeto de tipo request
     public function store(Request $request)
     {
+
         //llamamos al metodo que nos ayudara con las validaciones
         //le pasamos nuestro objeto $request que contine los campos a validar
         $this->validate ($request, [
@@ -26,7 +27,8 @@ class LoginController extends Controller
 
         //llamamos auth es que el modulo de autenticacion de usuario en laravel
         //hacemos uso del metodo attempt que permite verificar credenciales, devuelve true o false.
-        if(!auth()->attempt($request->only('email','password')))
+        //pasamos el atributo remember, el cual crea una cookie para mantener la sesion abierta
+        if(!auth()->attempt($request->only('email','password'), $request->remember))
         {
             //el mensaje es colocado en una variable de sesion que debemos postearlo en algun lugar
             //en nuestro caso sera en el login.blade.php
@@ -35,6 +37,7 @@ class LoginController extends Controller
             return back()->with('Mensaje','Credenciales incorrectas');
         }
 
-        return redirect()->route('posts.index');
+        //pasamos la variable de usuario al posts.index.
+        return redirect()->route('posts.index', auth()->user()->username);
     }
 }

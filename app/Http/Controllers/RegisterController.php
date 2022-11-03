@@ -63,7 +63,7 @@ class RegisterController extends Controller
 
         //redireccionar
         //laraver tiene una funcion que permite el redireccionamiento.
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index', auth()->user()->username);
 
         //dd('Creando Usuario');
     }
