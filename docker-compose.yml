@@ -90,9 +90,6 @@ services:
 networks:
     sail:
         driver: bridge
-        enable_ipv6: false
-        driver_opts:
-            com.docker.network.enable_ipv6: "false"
 volumes:
     sail-mysql:
         driver: local
